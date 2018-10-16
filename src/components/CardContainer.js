@@ -23,7 +23,9 @@ export default class CardContainer extends Component {
             <button onClick={this.props.addNewCardContainer}>
               Add new container
             </button>
-            <button onClick={this.props.addNewCard}>Add new card</button>
+            <button onClick={() => this.props.addNewCard(this.props.id)}>
+              Add new card
+            </button>
           </div>
           {this.renderCards(this.props.cards)}
         </div>

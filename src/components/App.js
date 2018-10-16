@@ -33,11 +33,13 @@ class App extends Component {
     this.setState({ cardContainers });
   };
 
-  addNewCard = () => {
+  addNewCard = containerId => {
+    console.log(containerId);
     const cards = [...this.state.cards];
     const newCard = {
       id: cards.length + 1,
-      title: 'Add card title'
+      title: 'Add card title',
+      containerId: containerId
     };
     cards.push(newCard);
     this.setState({ cards });
