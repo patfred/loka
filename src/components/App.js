@@ -18,7 +18,7 @@ class App extends Component {
         addNewCardContainer={this.addNewCardContainer}
         addNewCard={this.addNewCard}
         cards={this.state.cards}
-        addOrChangeCardDescription={this.addOrChangeCardDescription}
+        updateCard={this.updateCard}
       />
     ));
   };
@@ -34,23 +34,22 @@ class App extends Component {
   };
 
   addNewCard = containerId => {
-    console.log(containerId);
     const cards = [...this.state.cards];
     const newCard = {
       id: cards.length + 1,
-      title: 'Add card title',
+      title: '',
+      description: 'Add description...',
       containerId: containerId
     };
     cards.push(newCard);
     this.setState({ cards });
   };
 
-  addOrChangeCardDescription = (id, title) => {
+  updateCard = cardToUpdate => {
     const cards = this.state.cards.map(card => {
-      if (card.id === id) {
+      if (card.id === cardToUpdate.id) {
         return {
-          ...card,
-          title
+          ...cardToUpdate
         };
       } else {
         return card;
@@ -59,10 +58,24 @@ class App extends Component {
     this.setState({ cards });
   };
 
+  /* updateStateWithInput = (id, description) => {
+    const cards = this.state.cards.map(card => {
+      if (card.id === id) {
+        return {
+          ...card,
+          description
+        };
+      } else {
+        return card;
+      }
+    });
+    this.setState({ cards });
+  }; */
+
   render() {
     return (
       <div className="App">
-        <Header tagline="Test props" />
+        {/* <Header tagline="Test props" /> */}
         {this.renderCardContainers(this.state.cardContainers)}
       </div>
     );

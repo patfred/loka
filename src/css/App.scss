@@ -6,15 +6,15 @@ $gray: #6f7c8b;
 $dark-gray: #6f7c8b;
 
 $dark-green: #46ac90;
-$green: #93cec7;
-$blue: #b0d7d9;
+$green: #0cb5b9;
+$blue: #62acbf;
 
 html,
 body {
   height: 100%;
   margin: 0;
   color: $white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Monospace, Arial, Helvetica, sans-serif;
 }
 #root,
 .App {
@@ -28,11 +28,12 @@ header {
 .board-wrapper {
   display: flex;
   height: 100%;
-  background: yellow;
+  background: #eaeaea;
   float: left;
 
   .board-title {
     border-bottom: 1px solid $light-gray;
+    background: $blue;
 
     h2 {
       padding: 0 10px;
@@ -40,6 +41,7 @@ header {
   }
 
   .board-column {
+    min-width: 250px;
     border-right: 1px solid $light-gray;
     display: flex;
     -ms-flex-direction: column;
@@ -56,8 +58,85 @@ header {
 
 .card {
   margin: 10px;
-  border: 3px solid $blue;
+  border: 1px solid $blue;
   padding: 10px;
-  background: $light-gray;
-  border-radius: 4px;
+  border-radius: 3px;
+  background: $white;
+  color: $black;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  form {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    background: white;
+    color: black;
+    top: 10%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    border-radius: 5px;
+
+    .editCardHeader {
+      border-bottom: 1px solid $dark-gray;
+      margin-bottom: 10px;
+      input {
+        width: calc(100% - 10px);
+        height: 25px;
+        margin: 10px 0;
+        padding: 5px;
+        border: 0;
+        font-size: 20px;
+      }
+    }
+
+    textarea {
+      width: calc(100% - 10px);
+      border: 1px solid transparent;
+      min-height: 200px;
+      padding: 5px;
+      resize: none;
+    }
+  }
+
+  button {
+    position: absolute;
+    margin: 0 auto;
+    bottom: 10px;
+    right: 10px;
+    width: 200px;
+    background: $green;
+    height: 40px;
+    width: 100px;
+    border-radius: 4px;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+}
+
+.modal-main {
+  position: fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
 }

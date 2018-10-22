@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import Card from './Card';
+import posed from 'react-pose';
 
 export default class CardContainer extends Component {
   renderCards = cardArray => {
-    return cardArray.map(card => (
+    const cardBelongsToContainer = cardArray.filter(
+      cardArray => cardArray.containerId === this.props.id
+    );
+    return cardBelongsToContainer.map(card => (
       <Card
         key={card.id}
         title={card.title}
         id={card.id}
+        description={card.description}
         containerId={this.props.id}
-        addOrChangeCardDescription={this.props.addOrChangeCardDescription}
+        updateCard={this.props.updateCard}
       />
     ));
   };
@@ -23,11 +28,11 @@ export default class CardContainer extends Component {
             <button onClick={this.props.addNewCardContainer}>
               Add new container
             </button>
-            <button onClick={() => this.props.addNewCard(this.props.id)}>
-              Add new card
-            </button>
           </div>
           {this.renderCards(this.props.cards)}
+          <button onClick={() => this.props.addNewCard(this.props.id)}>
+            Add new task...
+          </button>
         </div>
       </div>
     );
