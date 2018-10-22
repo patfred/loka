@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Card from './Card';
-import posed from 'react-pose';
 
 export default class CardContainer extends Component {
+  state = {
+    editing: false
+  };
   renderCards = cardArray => {
     const cardBelongsToContainer = cardArray.filter(
       cardArray => cardArray.containerId === this.props.id
@@ -14,17 +16,63 @@ export default class CardContainer extends Component {
         id={card.id}
         description={card.description}
         containerId={this.props.id}
-        updateCard={this.props.updateCard}
+        updateCardTitleAndOrDescription={
+          this.props.updateCardTitleAndOrDescription
+        }
       />
     ));
   };
 
+  editContainerDescription = (id, title) => {
+    this.props.editContainerDescription(id, title);
+    this.setState({ editing: false });
+  };
+
+  onDragOver = e => {
+    e.preventDefault();
+  };
+
+  onDrop = (e, containerId) => {
+    let id = e.dataTransfer.getData('id');
+
+    let cards = this.props.cards.filter(card => {
+      if (card.id == id) {
+        card.category = containerId;
+      }
+      return card;
+    });
+
+    this.setState({
+      ...this.props.state,
+      cards
+    });
+  };
+
   render() {
+    const { editing } = this.state;
     return (
       <div className="board-wrapper">
-        <div className="board-column">
+        <div
+          className="board-column"
+          onDragOver={e => this.onDragOver(e)}
+          onDrop={e => {
+            this.onDrop(e, this.props.id);
+          }}
+        >
           <div className="board-title">
-            <h2>Board title {this.props.id}</h2>
+            {editing ? (
+              <input
+                placeholder="Add title..."
+                required
+                onBlur={e =>
+                  this.editContainerDescription(this.props.id, e.target.value)
+                }
+              />
+            ) : (
+              <h2 onClick={() => this.setState({ editing: true })}>
+                {this.props.title}
+              </h2>
+            )}
             <button onClick={this.props.addNewCardContainer}>
               Add new container
             </button>

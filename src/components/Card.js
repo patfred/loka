@@ -20,7 +20,7 @@ export default class Card extends Component {
     this.setState({ draggable: false });
   };
 
-  editCard = e => {
+  editCardTitleAndOrDescription = e => {
     e.preventDefault();
     const card = {
       id: this.props.id,
@@ -28,7 +28,12 @@ export default class Card extends Component {
       description: this.descRef.current.value,
       containerId: this.props.containerId
     };
-    this.props.updateCard(card);
+    this.props.updateCardTitleAndOrDescription(card);
+  };
+
+  onDragStart = (ev, id) => {
+    console.log('dragstart:', id);
+    ev.dataTransfer.setData('id', id);
   };
 
   render() {
@@ -38,12 +43,13 @@ export default class Card extends Component {
         className="card"
         onClose={this.showModal}
         draggable={this.state.draggable}
+        onDragStart={e => this.onDragStart(e, this.props.id)}
       >
         {haveTitle && <h3>{this.props.title}</h3>}
         <p onClick={this.showModal}>{this.props.description}</p>
 
         <Modal onClose={this.showModal} show={this.state.show}>
-          <form onSubmit={this.editCard}>
+          <form onSubmit={this.editCardTitleAndOrDescription}>
             <div className="editCardHeader">
               <input
                 required

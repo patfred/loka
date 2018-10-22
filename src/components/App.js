@@ -5,7 +5,7 @@ import '../css/App.scss';
 
 class App extends Component {
   state = {
-    cardContainers: [{ title: 'Add new title', id: 1 }],
+    cardContainers: [{ title: 'Add title...', id: 1 }],
     cards: []
   };
 
@@ -18,7 +18,8 @@ class App extends Component {
         addNewCardContainer={this.addNewCardContainer}
         addNewCard={this.addNewCard}
         cards={this.state.cards}
-        updateCard={this.updateCard}
+        updateCardTitleAndOrDescription={this.updateCardTitleAndOrDescription}
+        editContainerDescription={this.editContainerDescription}
       />
     ));
   };
@@ -27,7 +28,7 @@ class App extends Component {
     const cardContainers = [...this.state.cardContainers];
     const newContainer = {
       id: cardContainers.length + 1,
-      title: 'Add new title'
+      title: 'Add title...'
     };
     cardContainers.push(newContainer);
     this.setState({ cardContainers });
@@ -45,7 +46,21 @@ class App extends Component {
     this.setState({ cards });
   };
 
-  updateCard = cardToUpdate => {
+  editContainerDescription = (id, title) => {
+    const cardContainers = this.state.cardContainers.map(container => {
+      if (container.id === id && title !== '') {
+        return {
+          ...container,
+          title
+        };
+      } else {
+        return container;
+      }
+    });
+    this.setState({ cardContainers });
+  };
+
+  updateCardTitleAndOrDescription = cardToUpdate => {
     const cards = this.state.cards.map(card => {
       if (card.id === cardToUpdate.id) {
         return {
@@ -57,20 +72,6 @@ class App extends Component {
     });
     this.setState({ cards });
   };
-
-  /* updateStateWithInput = (id, description) => {
-    const cards = this.state.cards.map(card => {
-      if (card.id === id) {
-        return {
-          ...card,
-          description
-        };
-      } else {
-        return card;
-      }
-    });
-    this.setState({ cards });
-  }; */
 
   render() {
     return (

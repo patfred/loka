@@ -34,9 +34,19 @@ header {
   .board-title {
     border-bottom: 1px solid $light-gray;
     background: $blue;
+    height: 86px;
 
     h2 {
       padding: 0 10px;
+    }
+
+    input {
+      margin: 20px 0;
+      background: transparent;
+      border: 0;
+      font-size: 22px;
+      padding-left: 10px;
+      font-family: monospace;
     }
   }
 
